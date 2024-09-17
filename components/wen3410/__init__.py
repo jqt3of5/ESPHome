@@ -2,9 +2,9 @@ import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome import pins
 from esphome.const import CONF_ID, CONF_PIN
-from .. import gpio_ns
 
-WEN3410Component = gpio_ns.class_("WEN3410Component", cg.Component)
+wen3410ns =  cg.esphome_ns.namespace("wen3410")
+WEN3410Component = wen3410ns.class_("WEN3410Component", cg.Component)
 
 CONFIG_SCHEMA = cv.Schema(
     {
