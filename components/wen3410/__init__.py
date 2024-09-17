@@ -2,7 +2,7 @@ import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome import pins
 from esphome.const import CONF_ID, CONF_PIN
-from .. import gpio_ns
+from esphome.components import gpio_ns
 
 WEN3410Component = gpio_ns.class_("WEN3410Component", cg.Component)
 
