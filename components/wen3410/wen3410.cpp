@@ -33,40 +33,40 @@ namespace esphome {
         static const char *const TAG = "wen3410";
 
         void WEN3410Component::setup() {
-            ESP_LOGCONFIG(TAG, "Setting up TX 433Mhz for wen3410")
+            ESP_LOGCONFIG(TAG, "Setting up TX 433Mhz for wen3410");
             this->pin_->setup();
             // clear bus with 480µs high, otherwise initial reset in search might fail
             this->pin_->pin_mode(gpio::FLAG_OUTPUT);
         }
 
-        void GPIOOneWireBus::dump_config() {
+        void WEN3410Component::dump_config() {
             ESP_LOGCONFIG(TAG, "TX 433Mhz for wen3410");
             LOG_PIN("  Pin: ", this->t_pin_);
             this->dump_devices_(TAG);
         }
 
         void WEN3410Component::turn_off()  {
-            ESP_LOGD(TAG, "'%s' Turning OFF.", this->get_name().c_str())
+            ESP_LOGD(TAG, "Turning OFF.");
             writeCommand(WenCommand::Off);
         }
 
         void WEN3410Component::increase_delay() {
-            ESP_LOGD(TAG, "'%s' increasing delay.", this->get_name().c_str())
+            ESP_LOGD(TAG, "increasing delay.");
             writeCommand(WenCommand::Time);
         }
 
         void WEN3410Component::increase_speed() {
-            ESP_LOGD(TAG, "'%s' increasing speed.", this->get_name().c_str())
+            ESP_LOGD(TAG, "increasing speed.");
             writeCommand(WenCommand::Speed);
         }
 
         void WEN3410Component::writePreamble() const {
             for (int i = 0; i < 25; ++i)
             {
-                pin_.digital_write(true);
+                pin_->digital_write(true);
                 delayMicroseconds(300 + 30);
 
-                pin_.digital_write(false);
+                pin_->digital_write(false);
                 delayMicroseconds(340 - 30);
             }
         }
@@ -83,7 +83,7 @@ namespace esphome {
             }
         }
 
-        void WEN3410Component::writeCommand(WenCommand command) {
+        void WEN3410Component::writeCommand(wen3410::WenCommand command) {
 
             writePreamble();
             delay(10);
