@@ -9,27 +9,6 @@
 namespace esphome {
     namespace wen3410 {
 
-        //The values indicate the number of times to repeat the command to set this value
-        enum WenFilterSpeed {
-            Low = 1,
-            Medium = 2,
-            High = 3,
-        };
-
-        //The values indicate the number of times to repeat the command to set this value
-        enum WenFilterTime {
-            None = 0,
-            OneHour = 1,
-            TwoHour = 2,
-            FourHour = 3
-        };
-
-        enum WenCommand{
-            Speed = 0b1100001110011110,
-            Time = 0b1100001100110111,
-            Off= 0b1100001110010001
-        };
-
         static const char *const TAG = "wen3410";
 
         void WEN3410Component::setup() {
@@ -41,8 +20,7 @@ namespace esphome {
 
         void WEN3410Component::dump_config() {
             ESP_LOGCONFIG(TAG, "TX 433Mhz for wen3410");
-            LOG_PIN("  Pin: ", this->t_pin_);
-            this->dump_devices_(TAG);
+            LOG_PIN("  Pin: ", this->pin_);
         }
 
         void WEN3410Component::turn_off()  {
