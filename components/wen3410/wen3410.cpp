@@ -54,9 +54,9 @@ namespace esphome {
             {
                 bool v = bits & (1 << i);
 
-                pin_.digital_write(true);
+                pin_->digital_write(true);
                 delayMicroseconds(v ? 970 : 370);
-                pin_.digital_write(false);
+                pin_->digital_write(false);
                 delayMicroseconds(v ? 310: 910);
             }
         }
