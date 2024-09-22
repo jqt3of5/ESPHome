@@ -28,12 +28,23 @@ WEN3410_ACTION_SCHEMA = maybe_simple_id(
 @automation.register_action(
     "wen3410.increase_delay", IncreaseDelayAction, WEN3410_ACTION_SCHEMA
 )
+async def increase_delay_to_code(config, action_id, template_arg, args):
+    paren = await cg.get_variable(config[CONF_ID])
+    return cg.new_Pvariable(action_id, template_arg, paren)
+
 @automation.register_action(
     "wen3410.increase_speed", IncreaseSpeedAction, WEN3410_ACTION_SCHEMA
 )
+async def increase_speed_to_code(config, action_id, template_arg, args):
+    paren = await cg.get_variable(config[CONF_ID])
+    return cg.new_Pvariable(action_id, template_arg, paren)
+
 @automation.register_action(
     "wen3410.turn_off", TurnOffAction, WEN3410_ACTION_SCHEMA
 )
+async def turn_off_to_code(config, action_id, template_arg, args):
+    paren = await cg.get_variable(config[CONF_ID])
+    return cg.new_Pvariable(action_id, template_arg, paren)
 
 async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
