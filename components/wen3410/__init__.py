@@ -2,7 +2,7 @@ import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome import pins
 from esphome import automation
-from esphome.const import CONF_ID, CONF_PIN
+from esphome.const import CONF_ID, CONF_PIN, CONF_NAME
 from esphome.automation import maybe_simple_id
 from esphome.cpp_helpers import setup_entity
 
@@ -18,6 +18,7 @@ CONFIG_SCHEMA = cv.Schema(
     {
         cv.GenerateID(): cv.declare_id(WEN3410Component),
         cv.Required(CONF_PIN): pins.internal_gpio_output_pin_schema,
+        cv.Optional(CONF_NAME, default="wen3410"): cv.string_strict,
     }
 ).extend(cv.COMPONENT_SCHEMA)
 
