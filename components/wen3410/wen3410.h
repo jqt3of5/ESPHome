@@ -6,6 +6,8 @@
 
 #include "esphome/core/component.h"
 #include "esphome/core/hal.h"
+#include "esphome/core/entity_base.h"
+#include "esphome/core/helpers.h"
 
 namespace esphome {
     namespace wen3410 {
@@ -32,7 +34,7 @@ namespace esphome {
         };
 
 
-        class WEN3410Component : public Component {
+        class WEN3410 : public EntityBase, public EntityBase_DeviceClass {
         public:
             void set_pin(GPIOPin *pin) { pin_ = pin; }
 
