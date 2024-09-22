@@ -14,12 +14,15 @@ IncreaseDelayAction = wen3410ns.class_("IncreaseDelayAction", automation.Action)
 IncreaseSpeedAction = wen3410ns.class_("IncreaseSpeedAction", automation.Action)
 TurnOffAction = wen3410ns.class_("TurnOffAction", automation.Action)
 
-CONFIG_SCHEMA = cv.Schema(
-    {
-        cv.GenerateID(): cv.declare_id(WEN3410Component),
-        cv.Required(CONF_PIN): pins.internal_gpio_output_pin_schema,
-    }
-).extend(cv.ENTITY_BASE_SCHEMA)
+CONFIG_SCHEMA = (
+    cv.ENTITY_BASE_SCHEMA
+    .extend(
+        {
+            cv.GenerateID(): cv.declare_id(WEN3410Component),
+            cv.Required(CONF_PIN): pins.internal_gpio_output_pin_schema,
+        }
+    )
+)
 
 WEN3410_ACTION_SCHEMA = maybe_simple_id(
     {
