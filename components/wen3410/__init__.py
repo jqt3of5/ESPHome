@@ -2,7 +2,7 @@ import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome import pins
 from esphome import automation
-from esphome.const import CONF_ID, CONF_PIN,
+from esphome.const import CONF_ID, CONF_PIN
 from esphome.automation import maybe_simple_id
 from esphome.cpp_helpers import setup_entity
 
