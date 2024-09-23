@@ -34,7 +34,7 @@ namespace esphome {
         };
 
 
-        class WEN3410 : public EntityBase, public EntityBase_DeviceClass {
+        class WEN3410 : public Component {
         public:
             void set_pin(GPIOPin *pin) { pin_ = pin; }
 

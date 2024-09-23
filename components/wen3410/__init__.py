@@ -7,7 +7,7 @@ from esphome.automation import maybe_simple_id
 from esphome.cpp_helpers import setup_entity
 
 wen3410ns = cg.esphome_ns.namespace("wen3410")
-WEN3410Component = wen3410ns.class_("WEN3410", cg.EntityBase)
+WEN3410Component = wen3410ns.class_("WEN3410", cg.Component)
 
 # Actions
 IncreaseDelayAction = wen3410ns.class_("IncreaseDelayAction", automation.Action)
@@ -52,7 +52,7 @@ async def turn_off_to_code(config, action_id, template_arg, args):
 
 async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
-    await setup_entity(var, config)
+    # await setup_entity(var, config)
 
     pin = await cg.gpio_pin_expression(config[CONF_PIN])
     cg.add(var.set_pin(pin))
