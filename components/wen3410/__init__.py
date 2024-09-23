@@ -19,6 +19,7 @@ CONFIG_SCHEMA = cv.Schema(
         {
             cv.GenerateID(): cv.declare_id(WEN3410Component),
             cv.Required(CONF_PIN): pins.internal_gpio_output_pin_schema,
+            cv.Optional(CONF_BUTTON): button.button_schema(),
         }
 ).extend(cv.COMPONENT_SCHEMA)
 
