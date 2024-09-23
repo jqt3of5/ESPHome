@@ -13,33 +13,33 @@ namespace esphome {
 
         template<typename... Ts> class TurnOffAction : public Action<Ts...> {
         public:
-            explicit TurnOffAction(WEN3410Component *wen3410) : wen3410_(wen3410) {}
+            explicit TurnOffAction(WEN3410 *wen3410) : wen3410_(wen3410) {}
 
             void play(Ts... x) override { this->wen3410_->turn_off(); }
 
         protected:
-            WEN3410Component *wen3410_;
+            WEN3410 *wen3410_;
         };
 
         template<typename... Ts> class IncreaseSpeedAction : public Action<Ts...> {
         public:
-            explicit IncreaseSpeedAction(WEN3410Component *wen3410) : wen3410_(wen3410) {}
+            explicit IncreaseSpeedAction(WEN3410 *wen3410) : wen3410_(wen3410) {}
 
             void play(Ts... x) override { this->wen3410_->increase_speed(); }
 
         protected:
-            WEN3410Component *wen3410_;
+            WEN3410 *wen3410_;
         };
 
 
         template<typename... Ts> class IncreaseDelayAction : public Action<Ts...> {
         public:
-            explicit IncreaseDelayAction(WEN3410Component *wen3410) : wen3410_(wen3410) {}
+            explicit IncreaseDelayAction(WEN3410 *wen3410) : wen3410_(wen3410) {}
 
             void play(Ts... x) override { this->wen3410_->increase_delay(); }
 
         protected:
-            WEN3410Component *wen3410_;
+            WEN3410 *wen3410_;
         };
 
 
