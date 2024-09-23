@@ -2,7 +2,8 @@ import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome import pins
 from esphome import automation
-from esphome.const import CONF_ID, CONF_PIN
+from esphome.const import CONF_ID, CONF_PIN, CONF_BUTTON
+from esphome.components import button
 from esphome.automation import maybe_simple_id
 from esphome.cpp_helpers import setup_entity
 
@@ -14,15 +15,12 @@ IncreaseDelayAction = wen3410ns.class_("IncreaseDelayAction", automation.Action)
 IncreaseSpeedAction = wen3410ns.class_("IncreaseSpeedAction", automation.Action)
 TurnOffAction = wen3410ns.class_("TurnOffAction", automation.Action)
 
-CONFIG_SCHEMA = (
-    cv.ENTITY_BASE_SCHEMA
-    .extend(
+CONFIG_SCHEMA = cv.Schema(
         {
             cv.GenerateID(): cv.declare_id(WEN3410Component),
             cv.Required(CONF_PIN): pins.internal_gpio_output_pin_schema,
         }
-    )
-)
+).extend(cv.COMPONENT_SCHEMA)
 
 WEN3410_ACTION_SCHEMA = maybe_simple_id(
     {
@@ -56,5 +54,15 @@ async def to_code(config):
 
     pin = await cg.gpio_pin_expression(config[CONF_PIN])
     cg.add(var.set_pin(pin))
+
+    conf = config[CONF_BUTTON]
+    s = await button.new_button(conf)
+    cg.add(var.set_speed_button(s))
+
+    d = await button.new_button(conf)
+    cg.add(var.set_delay_button(d))
+
+    o = await button.new_button(conf)
+    cg.add(var.set_off_button(o))
 
     await cg.register_component(var, config)

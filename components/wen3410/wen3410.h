@@ -8,6 +8,7 @@
 #include "esphome/core/hal.h"
 #include "esphome/core/entity_base.h"
 #include "esphome/core/helpers.h"
+#include "esphome/components/sensor/sensor.h"
 
 namespace esphome {
     namespace wen3410 {
@@ -37,6 +38,9 @@ namespace esphome {
         class WEN3410 : public Component {
         public:
             void set_pin(GPIOPin *pin) { pin_ = pin; }
+            void set_speed_button(sensor::Sensor *speed_button) { speedButton_ = speed_button; }
+            void set_delay_button(sensor::Sensor * delay_button) { delayButton_ = delay_button; }
+            void set_off_button(sensor::Sensor *off_button) { offButton_ = off_button }
 
             void setup() override;
             void dump_config() override;
@@ -52,6 +56,11 @@ namespace esphome {
             void writePreamble() const;
             void inline writeBlock(int16_t bits) const;
             void writeCommand(wen3410::WenCommand command);
+
+            button::Button * speedButton_ {nullptr};
+            button::Button * delayButton_ {nullptr};
+            button::Button * offButton_ {nullptr};
+
         };
 
     }  // namespace sps30
