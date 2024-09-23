@@ -11,34 +11,34 @@ namespace esphome {
 
         static const char *const TAG = "wen3410";
 
-        void WEN3410Component::setup() {
+        void WEN3410::setup() {
             ESP_LOGCONFIG(TAG, "Setting up TX 433Mhz for wen3410");
             this->pin_->setup();
             // clear bus with 480µs high, otherwise initial reset in search might fail
             this->pin_->pin_mode(gpio::FLAG_OUTPUT);
         }
 
-        void WEN3410Component::dump_config() {
+        void WEN3410::dump_config() {
             ESP_LOGCONFIG(TAG, "TX 433Mhz for wen3410");
             LOG_PIN("  Pin: ", this->pin_);
         }
 
-        void WEN3410Component::turn_off()  {
+        void WEN3410::turn_off()  {
             ESP_LOGD(TAG, "Turning OFF.");
             writeCommand(WenCommand::Off);
         }
 
-        void WEN3410Component::increase_delay() {
+        void WEN3410::increase_delay() {
             ESP_LOGD(TAG, "increasing delay.");
             writeCommand(WenCommand::Time);
         }
 
-        void WEN3410Component::increase_speed() {
+        void WEN3410::increase_speed() {
             ESP_LOGD(TAG, "increasing speed.");
             writeCommand(WenCommand::Speed);
         }
 
-        void WEN3410Component::writePreamble() const {
+        void WEN3410::writePreamble() const {
             for (int i = 0; i < 25; ++i)
             {
                 pin_->digital_write(true);
@@ -49,7 +49,7 @@ namespace esphome {
             }
         }
 
-        void inline WEN3410Component::writeBlock(int16_t bits) const {
+        void inline WEN3410::writeBlock(int16_t bits) const {
             for (int i = sizeof(bits)*8-1; i >= 0; i--)
             {
                 bool v = bits & (1 << i);
@@ -61,7 +61,7 @@ namespace esphome {
             }
         }
 
-        void WEN3410Component::writeCommand(wen3410::WenCommand command) {
+        void WEN3410::writeCommand(wen3410::WenCommand command) {
 
             writePreamble();
             delay(10);
