@@ -9,6 +9,8 @@
 #include "esphome/core/entity_base.h"
 #include "esphome/core/helpers.h"
 
+#include "esphome/components/output/float_output.h"
+
 namespace esphome {
     namespace wen3410 {
 
