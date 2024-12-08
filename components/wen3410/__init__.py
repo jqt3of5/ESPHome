@@ -8,7 +8,7 @@ from esphome.automation import maybe_simple_id
 from esphome.components import output
 
 wen3410ns = cg.esphome_ns.namespace("wen3410")
-WEN3410Component = wen3410ns.class_("WEN3410", cg.Component, cg.FloatOutput)
+WEN3410Component = wen3410ns.class_("WEN3410", cg.Component, output.FloatOutput)
 
 # Actions
 IncreaseDelayAction = wen3410ns.class_("IncreaseDelayAction", automation.Action)
