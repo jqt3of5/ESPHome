@@ -11,35 +11,26 @@
 namespace esphome {
     namespace wen3410 {
 
-        template<typename... Ts> class TurnOffAction : public Action<Ts...> {
+        template<typename... Ts> class TurnOffAction : public Action<Ts...>, public Parented<WEN3410> {
         public:
-            explicit TurnOffAction(WEN3410 *wen3410) : wen3410_(wen3410) {}
-
-            void play(Ts... x) override { this->wen3410_->turn_off(); }
+            void play(Ts... x) override { this->parent_->turn_off(); }
 
         protected:
-            WEN3410 *wen3410_;
         };
 
-        template<typename... Ts> class IncreaseSpeedAction : public Action<Ts...> {
+        template<typename... Ts> class IncreaseSpeedAction : public Action<Ts...>, public Parented<WEN3410> {
         public:
-            explicit IncreaseSpeedAction(WEN3410 *wen3410) : wen3410_(wen3410) {}
-
-            void play(Ts... x) override { this->wen3410_->increase_speed(); }
+            void play(Ts... x) override { this->parent_->increase_speed(); }
 
         protected:
-            WEN3410 *wen3410_;
         };
 
 
-        template<typename... Ts> class IncreaseDelayAction : public Action<Ts...> {
+        template<typename... Ts> class IncreaseDelayAction : public Action<Ts...>, public Parented<WEN3410> {
         public:
-            explicit IncreaseDelayAction(WEN3410 *wen3410) : wen3410_(wen3410) {}
-
-            void play(Ts... x) override { this->wen3410_->increase_delay(); }
+            void play(Ts... x) override { this->parent_->increase_delay(); }
 
         protected:
-            WEN3410 *wen3410_;
         };
 
 
