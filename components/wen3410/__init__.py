@@ -5,6 +5,7 @@ from esphome import automation
 from esphome.const import CONF_ID, CONF_PIN, CONF_BUTTON, CONF_VALUE
 from esphome.core import CORE
 from esphome.components import output
+from esphome.automation import maybe_simple_id
 
 wen3410ns = cg.esphome_ns.namespace("wen3410")
 WEN3410Component = wen3410ns.class_("WEN3410", cg.Component)
@@ -30,7 +31,7 @@ async def register_output(var, config):
         var = cg.Pvariable(config[CONF_ID], var)
     await setup_output_platform_(var, config)
 
-WEN3410_ACTION_SCHEMA = cv.maybe_simple_id(
+WEN3410_ACTION_SCHEMA = maybe_simple_id(
     {
         cv.Required(CONF_ID): cv.use_id(WEN3410Component),
     },
