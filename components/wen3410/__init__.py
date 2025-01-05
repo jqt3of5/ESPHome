@@ -30,11 +30,10 @@ async def register_output(var, config):
         var = cg.Pvariable(config[CONF_ID], var)
     await setup_output_platform_(var, config)
 
-WEN3410_ACTION_SCHEMA = cv.maybe_simple_value(
+WEN3410_ACTION_SCHEMA = cv.maybe_simple_id(
     {
         cv.Required(CONF_ID): cv.use_id(WEN3410Component),
     },
-    key=CONF_VALUE
 )
 
 @automation.register_action(
@@ -43,8 +42,6 @@ WEN3410_ACTION_SCHEMA = cv.maybe_simple_value(
 async def wen3410_increase_delay_to_code(config, action_id, template_arg, args):
     var = cg.new_Pvariable(action_id, template_arg)
     await cg.register_parented(var, config[CONF_ID])
-    template_ = await cg.templatable(config[CONF_VALUE], args, cg.uint16)
-    cg.add(var.set_value(template_))
     return var
 
 
