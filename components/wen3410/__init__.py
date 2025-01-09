@@ -2,7 +2,7 @@ import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome import pins
 from esphome import automation
-from esphome.const import CONF_ID, CONF_PIN, CONF_BUTTON, CONF_VALUE
+from esphome.const import CONF_ID, CONF_PIN, CONF_BUTTON, CONF_VALUE,CONF_OUTPUT,CONF_DIRECTION_OUTPUT, CONF_OSCILLATION_OUTPUT
 from esphome.core import CORE
 from esphome.components import output
 from esphome.automation import maybe_simple_id
@@ -19,6 +19,9 @@ CONFIG_SCHEMA = cv.Schema(
         {
             cv.GenerateID(): cv.declare_id(WEN3410Component),
             cv.Required(CONF_PIN): pins.gpio_output_pin_schema,
+            cv.Required(CONF_OUTPUT): cv.use_id(output.BinaryOutput),
+            cv.Optional(CONF_DIRECTION_OUTPUT): cv.use_id(output.BinaryOutput),
+            cv.Optional(CONF_OSCILLATION_OUTPUT): cv.use_id(output.BinaryOutput),
         }
 )
 
@@ -62,11 +65,19 @@ async def wen3410_turn_off_to_code(config, action_id, template_arg, args):
 
 async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
-    await output.register_output(var, config)
     await cg.register_component(var, config)
 
     pin = await cg.gpio_pin_expression(config[CONF_PIN])
     cg.add(var.set_pin(pin))
 
-    cg.add_define("USE_OUTPUT")
-    cg.add_global(wen3410ns.using)
+    output_ = await cg.get_variable(config[CONF_OUTPUT])
+    cg.add(var.set_output(output_))
+
+
+    if oscillation_output_id := config.get(CONF_OSCILLATION_OUTPUT):
+        oscillation_output = await cg.get_variable(oscillation_output_id)
+        cg.add(var.set_oscillating(oscillation_output))
+
+    if direction_output_id := config.get(CONF_DIRECTION_OUTPUT):
+        direction_output = await cg.get_variable(direction_output_id)
+        cg.add(var.set_direction(direction_output))
